@@ -3,7 +3,6 @@ FROM alpine:latest
 # Instalar dependências
 RUN apk update && apk add --no-cache \
   bash \
-  openrc \
   gcc \
   g++ \
   openmpi \
@@ -21,9 +20,8 @@ ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:$LD_LIBRARY_PATH"
 RUN mkdir -p /root/.ssh && \
   ssh-keygen -A && \
   ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -N "" && \
-  ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N "" && \
   cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys && \
-  chmod 700 /root/.ssh/authorized_keys && \
+  chmod 600 /root/.ssh/authorized_keys && \
   echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
 # Permitir login root via SSH e desabilitar autenticação por senha

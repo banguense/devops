@@ -1,0 +1,15 @@
+# sc-nfs.yaml
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-ext-csi
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 192.168.0.105
+  share: /srv/nfs
+mountOptions:
+  - hard
+  - nfsvers=4.1
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
