@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir ~/.kube
-sudo microk8s config >~/.kube/config
+sudo microk8s config > ~/.kube/config
 
 #caso de algum erro nessa etapa, acesse: https://microk8s.io/docs/how-to-nfs
 microk8s enable helm3
