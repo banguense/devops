@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir ~/.kube
-sudo microk8s config > ~/.kube/config
+sudo microk8s config >~/.kube/config
 
 #caso de algum erro nessa etapa, acesse: https://microk8s.io/docs/how-to-nfs
 microk8s enable helm3
@@ -11,3 +11,6 @@ microk8s helm3 repo update
 microk8s helm3 install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
   --namespace default \
   --set kubeletDir=/var/snap/microk8s/common/var/lib/kubelet
+
+microk8s status --wait-ready
+microk8s enable dns storage
