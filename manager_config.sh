@@ -29,7 +29,7 @@ mv app/src/main/resources/application.properties ~/
 
 # Instalar o Nginx
 sudo apt update
-sudo apt install -y nginx
+sudo apt install -y nginx nfs-common
 
 # Configurar o Nginx para servir o frontend
 sudo mkdir -p /var/www/mpi
@@ -93,6 +93,14 @@ sudo systemctl restart nginx
 
 echo "Por favor, edite o arquivo application.properties em ~/ antes de continuar."
 read -p "Pressione Enter quando terminar..."
+
+# Solicitar o IP do servidor NFS
+read -p "Digite o IP do servidor NFS: " NFS_SERVER_IP
+
+# Montar o diretório NFS
+sudo mkdir -p /mnt/nfs_mount
+sudo mount -t nfs "${NFS_SERVER_IP}:/srv/nfs" /mnt/nfs_mount
+echo "${NFS_SERVER_IP}:/srv/nfs /mnt/nfs_mount nfs defaults 0 0" | sudo tee -a /etc/fstab
 
 # Criar o diretório para o MPI Server e mover os arquivos necessários
 sudo mkdir -p /opt/mpi-server/config
